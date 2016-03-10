@@ -23,17 +23,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView);
+        mSharedPreferences = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
 
         mHoles = new Hole[18];
         for (int i=0;i<18;i++) {
             mHoles[i] = new Hole();
             mHoles[i].setNumber(i + 1);
-            if (mSharedPreferences != null) {
-                mHoles[i].setScore(mSharedPreferences.getInt(i + "", 0));
-            }
-            else {
-                mHoles[i].setScore(0);
-            }
+            mHoles[i].setScore(mSharedPreferences.getInt(i + "", 0));
         }
 
         mRecyclerView.setAdapter(new HoleAdapter(this, mHoles));
@@ -45,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         //store data
-        mSharedPreferences = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
-        mEditor = mSharedPreferences.edit();
         for (int i=0;i<18;i++) {
             mEditor.putInt(i+"", mHoles[i].getScore());
         }
