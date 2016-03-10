@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREF_FILE = "com.example.yinnan.golfscorecard.preferences";
@@ -24,17 +27,18 @@ public class MainActivity extends AppCompatActivity {
         mHoles = new Hole[18];
         for (int i=0;i<18;i++) {
             mHoles[i] = new Hole();
-            mHoles[i].setNumber(i+1);
-            mHoles[i].setScore(0);
+            mHoles[i].setNumber(i + 1);
+            if (mSharedPreferences != null) {
+                mHoles[i].setScore(mSharedPreferences.getInt(i + "", 0));
+            }
+            else {
+                mHoles[i].setScore(0);
+            }
         }
 
         mRecyclerView.setAdapter(new HoleAdapter(this, mHoles));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
-
-        for (int i=0;i<18;i++) {
-
-        }
     }
 
     @Override
