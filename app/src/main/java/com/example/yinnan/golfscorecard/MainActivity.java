@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -45,5 +50,35 @@ public class MainActivity extends AppCompatActivity {
             mEditor.putInt(i+"", mHoles[i].getScore());
         }
         mEditor.apply();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_clear) {
+            Toast.makeText(MainActivity.this, "All scores have been cleared!", Toast.LENGTH_LONG).show();
+            //clean up the data
+            for (int i=0;i<18;i++) {
+                mHoles[i].setScore(0);
+            }
+            //update current UI
+            for (int i=0; i<mRecyclerView.getChildCount();i++) {
+                TextView textView = (TextView) mRecyclerView.getChildAt(i)
+                        .findViewById(R.id.scoreLabel);
+                textView.setText("0");
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
