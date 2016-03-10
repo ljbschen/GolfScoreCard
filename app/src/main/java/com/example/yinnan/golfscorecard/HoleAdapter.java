@@ -38,6 +38,7 @@ public class HoleAdapter extends RecyclerView.Adapter<HoleAdapter.HoleViewHolder
 
         private TextView mHoleLabel,mScoreLabel;
         private Button mPlusButton, mMinusButton;
+        private Hole mHole;
 
         public HoleViewHolder(View itemView) {
             super(itemView);
@@ -51,13 +52,19 @@ public class HoleAdapter extends RecyclerView.Adapter<HoleAdapter.HoleViewHolder
                 @Override
                 public void onClick(View v) {
                     //change the hole score
+                    mHole.setScore(mHole.getScore()+1);
+                    mScoreLabel.setText(mHole.getScore()+"");
                 }
             });
 
             mMinusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    mHole.setScore(mHole.getScore()-1);
+                    if (mHole.getScore()<0) {
+                        mHole.setScore(0);
+                    }
+                    mScoreLabel.setText(mHole.getScore()+"");
                 }
             });
         }
@@ -65,6 +72,7 @@ public class HoleAdapter extends RecyclerView.Adapter<HoleAdapter.HoleViewHolder
         public void bind(Hole hole) {
             mHoleLabel.setText("Hole " + hole.getNumber() + ":");
             mScoreLabel.setText(hole.getScore()+"");
+            mHole = hole;
         }
     }
 }
