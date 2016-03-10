@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new HoleAdapter(this, mHoles));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
+
+        for (int i=0;i<18;i++) {
+
+        }
     }
 
     @Override
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         //store data
         mSharedPreferences = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
-        //mEditor
+        for (int i=0;i<18;i++) {
+            mEditor.putInt(i+"", mHoles[i].getScore());
+        }
+        mEditor.apply();
     }
 }
