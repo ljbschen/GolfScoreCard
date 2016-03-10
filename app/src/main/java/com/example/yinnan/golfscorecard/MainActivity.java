@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             mHoles[i].setNumber(i + 1);
             mHoles[i].setScore(mSharedPreferences.getInt(i + "", 0));
         }
+
         mRecyclerView.setAdapter(new HoleAdapter(this, mHoles));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_clear) {
             Toast.makeText(MainActivity.this, "All scores have been cleared!", Toast.LENGTH_LONG).show();
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
