@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
             mHoles[i].setNumber(i + 1);
             mHoles[i].setScore(mSharedPreferences.getInt(i + "", 0));
         }
-
         mRecyclerView.setAdapter(new HoleAdapter(this, mHoles));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
